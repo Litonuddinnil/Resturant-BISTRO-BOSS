@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Cover from "../../Shared/Cover/Cover";
 
 const MenuCategory = ({ item, heading, subheading,image }) => {
-  
   return (
     <div>
      {heading &&  <Cover image={image} heading={heading} subheading={subheading}></Cover>}

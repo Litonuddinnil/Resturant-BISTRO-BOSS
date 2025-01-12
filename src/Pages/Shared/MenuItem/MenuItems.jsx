@@ -1,6 +1,7 @@
 import React from 'react';
 
 const MenuItems = ({item}) => {
+    
     const {name,recipe,image,price} =  item;
     return (
         <div className='flex my-8'>

@@ -1,8 +1,12 @@
 import React from "react";
+import useAuth from "../../hooks/useAuth";
 
 const FoodCart = ({ item }) => {
   const { name, recipe, image, price, category } = item;
-
+  const {user} =  useAuth();
+const handlerAddToFood = food =>{
+  console.log(food,user.email);
+}
   return (
     <div className="container mx-auto p-4">
       <div className="card bg-base-100 shadow-lg border border-b-2 border-yellow-500">
@@ -27,7 +31,7 @@ const FoodCart = ({ item }) => {
             <p className="text-lg font-bold text-yellow-500">
               ${price.toFixed(2)}
             </p>
-            <button className="btn btn-sm text-blue-600 btn-outline border-0 border-b-4 border-yellow-500">
+            <button onClick={()=>handlerAddToFood(item)} className="btn btn-sm text-blue-600 btn-outline border-0 border-b-4 border-yellow-500">
               Add to Cart
             </button>
           </div>

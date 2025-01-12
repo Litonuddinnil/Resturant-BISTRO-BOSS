@@ -46,7 +46,7 @@ const Order = () => {
         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
           {/* Tab List */}
           <TabList className="flex justify-center gap-6 border-b border-gray-300 pb-2">
-            {["Salad", "Pizza", "Soup", "Desserts", "Drinks"].map((tab, idx) => (
+            {["Salad", "Pizza", "Soup", "Dessert", "Drinks"].map((tab, idx) => (
               <Tab
                 key={idx}
                 className={`cursor-pointer px-4 py-2 text-sm font-semibold uppercase transition-colors duration-300 ${
