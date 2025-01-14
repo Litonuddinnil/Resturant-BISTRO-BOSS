@@ -18,8 +18,8 @@ const Login = () => {
 
   const navigate = useNavigate(); // For programmatic navigation
   const location = useLocation(); // Access current location
-  const redirectTo = location.state?.from?.pathname || "/"; // Determine the redirect path
-
+  const from = location.state?.from?.pathname || "/"; // Determine the redirect path
+  console.log("login page location state",location.state);
   // Load the captcha on component mount
   useEffect(() => {
     loadCaptchaEnginge(6); // 6-character captcha
@@ -39,7 +39,7 @@ const Login = () => {
         icon: "success",
         confirmButtonText: "OK",
       });
-      navigate(redirectTo, { replace: true }); // Redirect to the intended page
+      navigate( from, { replace: true }); // Redirect to the intended page
       console.log("Logged-in user:", result.user);
     } catch (error) {
       Swal.fire({

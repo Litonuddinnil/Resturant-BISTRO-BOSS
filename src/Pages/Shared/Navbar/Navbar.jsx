@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { GiShoppingCart } from "react-icons/gi";
+import useCart from "../../../hooks/useCart";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "cupcake" // Default to 'cupcake'
   );
@@ -50,8 +52,8 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <Link to={"/"} className="btn badge badge-neutral text-amber-200 hover:text-red-400 transition-all"> 
-            <span className="text-xl"> <GiShoppingCart></GiShoppingCart></span> +0
+        <Link to={"/dashboard/cart"} className="btn badge badge-neutral text-amber-200 hover:text-red-400 transition-all"> 
+            <span className="text-xl"> <GiShoppingCart></GiShoppingCart></span> +{cart.length}
         
         </Link>
       </li>
