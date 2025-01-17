@@ -10,6 +10,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -163,7 +164,9 @@ const Login = () => {
                 />
               </div>
             </form>
-
+          <div>
+            <SocialLogin></SocialLogin>
+          </div>
             {/* Redirect to Sign Up */}
             <p className="text-center mt-4 text-gray-600">
               Don't have an account?{" "}

@@ -1,9 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { app } from '../firebase/firebase.config';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { app } from '../firebase/firebase.config'; 
+import useAxiosPublic from '../hooks/useAxiosPublic';
 const auth = getAuth(app);
 export const AuthContext = createContext(null);
-const AuthProvider = ({children}) => {
+const axiosPublic = useAxiosPublic();
+const AuthProvider = ({children}) => { 
+    const provider = new GoogleAuthProvider();
     const [user,setUser] = useState(null);
     const [loading,setLoading] = useState(true);
     const createUser  = (email,password)=>{
@@ -13,6 +16,10 @@ const AuthProvider = ({children}) => {
     const signInUser  = (email,password)=>{
         setLoading(true);
      return signInWithEmailAndPassword(auth,email,password);
+    }
+    const googleLogIn = () =>{
+        setLoading(true);
+        return signInWithPopup(auth,provider);
     }
 
     const logOut  = ()=>{
@@ -27,20 +34,36 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
        const unSubscribe =  onAuthStateChanged(auth,currentUser =>{
             setUser(currentUser);
+            if(currentUser){
+                //get token and store client
+                console.log(currentUser.email);
+                const userInfo ={email: currentUser.email};
+                axiosPublic.post('/jwt',userInfo)
+                .then(res =>{
+                    if(res.data.token){
+                        localStorage.setItem('access-token',res.data.token);
+                    }
+                })
+            }
+            else{
+                //remove token (db,lc,cashing,in memory)
+                localStorage.removeItem('access-token');
+            }
             setLoading(false);
-            console.log('current user', currentUser);
+             
         })
         return ()=>{
             return unSubscribe();
         }
-    },[])
+    },[axiosPublic])
     const authInfo = {
         user,
         loading,
         createUser,
         signInUser,
         logOut,
-        userUpdateProfile
+        userUpdateProfile,
+        googleLogIn
     }
     return (
         <AuthContext.Provider value={authInfo}>

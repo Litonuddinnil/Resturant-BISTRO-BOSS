@@ -30,7 +30,7 @@ const Navbar = () => {
     );
   };
   const NavbarLinks = () => (
-    <ul className="menu menu-horizontal px-1">
+    <ul className="menu menu-horizontal px-1 items-center">
       <li>
         <Link to={"/"} className="hover:text-primary transition-all">
           Home
@@ -79,7 +79,7 @@ const Navbar = () => {
         <>
           {" "}
           <li>
-            <Link to={"/login"} className="hover:text-primary transition-all">
+            <Link to={"/login"} className="hover:text-primary bg-blue-500 mx-2 transition-all">
               Login
             </Link>
           </li>

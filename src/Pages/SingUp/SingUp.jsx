@@ -6,8 +6,11 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { createUser, userUpdateProfile } = useContext(AuthContext);
   const {
@@ -31,15 +34,26 @@ const SignUp = () => {
     try {
       const result = await createUser(data.email, data.password);
       const loggedUser = result.user;
-
+      console.log(loggedUser); 
       await userUpdateProfile(data.name, data.photoUrl);
-      Swal.fire({
-        title: "Account Created Successfully!",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
-      reset();
-      navigate("/"); // Navigate immediately after the success message
+      const userInfo ={
+        name:data.name,
+        email:data.email
+      }
+      axiosPublic.post('/users',userInfo)
+      .then(res =>{
+        console.log('user added from database',res.data);
+        if(res.data.insertedId){
+
+          Swal.fire({
+            title: "Account Created Successfully!",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+          reset();
+          navigate("/");  
+        }
+      })  
     } catch (err) {
       Swal.fire({
         title: "Error",
@@ -204,7 +218,9 @@ const SignUp = () => {
                 />
               </div>
             </form>
-
+            <div>
+              <SocialLogin></SocialLogin>
+            </div>
             {/* Additional Info */}
             <p className="text-center mt-4 text-gray-600">
               Already have an account?{" "}

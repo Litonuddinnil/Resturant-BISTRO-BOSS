@@ -4,8 +4,7 @@ import Cover from "../../Shared/Cover/Cover";
 import { Helmet } from "react-helmet-async";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import useMenu from "../../../hooks/useMenu";
-import FoodCart from "../../../Components/FoodCart/FoodCart";
+import useMenu from "../../../hooks/useMenu"; 
 import { useParams } from "react-router-dom";
 import FoodCartCarousel from "../../../Components/FoodCart/FoodCartCarousel";
 
