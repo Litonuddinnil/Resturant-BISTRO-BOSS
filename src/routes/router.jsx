@@ -15,6 +15,10 @@ import AllUser from "../Pages/DashBoard/AllUser/AllUser";
 import AddItems from "../Pages/DashBoard/AddItems/AddItems";
 import AdminRoutes from "./AdminRoutes";
 import ManageItems from "../Pages/DashBoard/ManageItems/ManageItems";
+import Payment from "../Pages/DashBoard/Payment/Payment";
+import PaymentHistory from "../Pages/DashBoard/PaymentHistory/PaymentHistory";
+import AdminHome from "../Pages/DashBoard/AdminHome/AdminHome";
+import UserHome from "../Pages/DashBoard/UserHome/UserHome";
 
   const router = createBrowserRouter([
     {
@@ -56,6 +60,18 @@ import ManageItems from "../Pages/DashBoard/ManageItems/ManageItems";
           path:"cart",
           element:<Cart></Cart>
         },
+        {
+            path:"payment",
+            element:<Payment></Payment>
+        },
+        {
+          path:"paymentHistory",
+          element:<PaymentHistory></PaymentHistory>
+        },
+        {
+          path:"userHome",
+          element:<UserHome></UserHome>
+        },
         //admin related routes
         {
          path:"addItems", 
@@ -68,6 +84,10 @@ import ManageItems from "../Pages/DashBoard/ManageItems/ManageItems";
         {
           path:"users",
           element:<AdminRoutes><AllUser></AllUser></AdminRoutes>
+        },
+        {
+          path:"adminHome",
+          element:<AdminRoutes><AdminHome></AdminHome></AdminRoutes>
         }
       ]
     }

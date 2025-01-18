@@ -152,7 +152,7 @@ const DashBoard = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/paymenthistory"
+              to="/dashboard/paymentHistory"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-4 py-2 rounded-lg ${
                   isActive

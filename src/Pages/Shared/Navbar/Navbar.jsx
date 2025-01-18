@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { GiShoppingCart } from "react-icons/gi";
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const [cart] = useCart();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "cupcake" // Default to 'cupcake'
@@ -45,7 +47,7 @@ const Navbar = () => {
         <Link to={"/order/salad"} className="hover:text-primary transition-all">
           Order Food
         </Link>
-      </li>
+      </li> 
       <li>
         <Link to={"/secret"} className="hover:text-primary transition-all">
           Special Product
@@ -56,7 +58,17 @@ const Navbar = () => {
             <span className="text-xl"> <GiShoppingCart></GiShoppingCart></span> +{cart.length}
         
         </Link>
-      </li>
+      </li>  
+      {user && (
+        <li>
+          <Link
+            to={isAdmin ? "/dashboard/adminHome" : "/dashboard/userHome"}
+            className="hover:text-primary transition-all"
+          >
+            Dashboard
+          </Link>
+        </li>
+      )}
       {user ? (
         <>
           <button onClick={handlerLogOut} className="btn btn-error">
@@ -91,7 +103,7 @@ const Navbar = () => {
   return (
     <div className="navbar fixed z-10 bg-black bg-opacity-80 text-white shadow-md">
       {/* Navbar Start */}
-      <div className="navbar-start">
+      <div className="navbar-start ">
         {/* Mobile Dropdown */}
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -114,7 +126,7 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
-            <NavbarLinks />
+            <NavbarLinks /> 
           </ul>
         </div>
 
@@ -128,7 +140,7 @@ const Navbar = () => {
       </div>
 
       {/* Navbar End */}
-      <div className="navbar-end">
+      <div className="navbar-center">
         <div className="hidden lg:flex">
           <NavbarLinks />
         </div>
