@@ -13,8 +13,7 @@ const PaymentHistory = () => {
             const res = await axiosSecure.get(`/payments/${user.email}`);
             return res.data;
         }
-    })
-    console.log(payments[0].cartIds);
+    }) 
     return (
         <div>
             <h1 className='text-3xl'>Total Payments:{payments.length}</h1>
